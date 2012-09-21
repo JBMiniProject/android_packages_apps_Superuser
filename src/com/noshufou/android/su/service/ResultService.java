@@ -51,6 +51,7 @@ public class ResultService extends IntentService {
     private boolean mNotify = true;
     private String mNotifyType = "toast";
     private boolean mLog = true;
+    private String mRAppName = "unknown";
     
     private Handler mHandler;
     
@@ -115,9 +116,16 @@ public class ResultService extends IntentService {
                 allow == -1) {
             return;
         }
+
+        // If this is coming from the system the App Name is JBMini Project :D
+        if (Util.getAppName(this, callerUid, false).equals("system"))
+            mRAppName = "JBMini Project";
+        else
+            mRAppName = Util.getAppName(this, callerUid, false);
+
         final String notificationMessage = getString(
                 allow==1?R.string.notification_text_allow:R.string.notification_text_deny,
-                Util.getAppName(this, callerUid, false));
+                mRAppName);
         if (mNotifyType.equals("toast")) {
             ensurePrefs();
             int lastNotificationUid = mPrefs.getInt(LAST_NOTIFICATION_UID, 0);
