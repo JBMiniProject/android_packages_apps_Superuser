@@ -180,13 +180,20 @@ public class ResultService extends IntentService {
                 allow == -1) {
             return;
         }
-        
+
+        String mLAppName = "unknown";
+
+        if (Util.getAppName(this, callerUid, false).equals("system"))
+            mLAppName = "JBMini Project";
+        else
+            mLAppName = Util.getAppName(this, callerUid, false);
+
         ContentValues values = new ContentValues();
         if (appId == -1) {
             // App was not found in the database, add a row for logging purposes
             values.put(Apps.UID, callerUid);
             values.put(Apps.PACKAGE, Util.getAppPackage(this, callerUid));
-            values.put(Apps.NAME, mRAppName);
+            values.put(Apps.NAME, mLAppName);
             values.put(Apps.EXEC_UID, execUid);
             values.put(Apps.EXEC_CMD, execCmd);
             values.put(Apps.ALLOW, Apps.AllowType.ASK);
