@@ -186,7 +186,7 @@ public class ResultService extends IntentService {
             // App was not found in the database, add a row for logging purposes
             values.put(Apps.UID, callerUid);
             values.put(Apps.PACKAGE, Util.getAppPackage(this, callerUid));
-            values.put(Apps.NAME, Util.getAppName(this, callerUid, false));
+            values.put(Apps.NAME, mRAppName);
             values.put(Apps.EXEC_UID, execUid);
             values.put(Apps.EXEC_CMD, execCmd);
             values.put(Apps.ALLOW, Apps.AllowType.ASK);
